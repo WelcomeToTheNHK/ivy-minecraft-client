@@ -5,16 +5,16 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 interface FeatureSearch {
-  mode?: Mode;
-  version?: Version;
-  category?: Category;
+  mode?: Mode | undefined;
+  version?: Version | undefined;
+  category?: Category | undefined;
 }
 
 export const Route = createFileRoute("/features")({
   validateSearch: (s: Record<string, unknown>): FeatureSearch => ({
-    mode: s.mode === "ghost" || s.mode === "blatant" ? s.mode : undefined,
-    version: VERSIONS.includes(s.version as Version) ? (s.version as Version) : undefined,
-    category: CATEGORIES.includes(s.category as Category) ? (s.category as Category) : undefined,
+    mode: s["mode"] === "ghost" || s["mode"] === "blatant" ? s["mode"] : undefined,
+    version: VERSIONS.includes(s["version"] as Version) ? (s["version"] as Version) : undefined,
+    category: CATEGORIES.includes(s["category"] as Category) ? (s["category"] as Category) : undefined,
   }),
   head: () => ({
     meta: [

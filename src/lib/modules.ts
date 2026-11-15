@@ -77,7 +77,7 @@ export const MODULES: Module[] = [
 
 export function filterModules(
   modules: Module[],
-  { mode, version, category }: { mode?: Mode; version?: Version; category?: Category },
+  { mode, version, category }: { mode?: Mode | undefined; version?: Version | undefined; category?: Category | undefined },
 ) {
   return modules.filter(
     (m) =>
