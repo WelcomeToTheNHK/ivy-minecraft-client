@@ -1,10 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
 import {
-  ArrowUpRight, Cloud, Cpu, Download, EyeOff, Gauge, Ghost, Flame, Syringe, Trash2, Monitor, Puzzle, ShieldCheck, Zap,
+  ArrowUpRight, BadgePercent, Cloud, Coins, Cpu, Download, EyeOff, Gauge, Ghost, Flame, Syringe, Trash2, Monitor, Puzzle, ShieldCheck, Zap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ClickGui } from "@/components/site/ClickGui";
+import { DISCORD_URL } from "@/lib/links";
 import { MODULES, filterModules, type Mode } from "@/lib/modules";
 import { formatPrice, startingPrice } from "@/lib/pricing";
 import { cn } from "@/lib/utils";
@@ -30,7 +29,7 @@ function Index() {
       <Hero />
       <TrustStrip />
       <Modes />
-      <Showcase />
+      <Rewards />
       <FeatureGrid />
       <Versions />
       <Setup />
@@ -70,7 +69,7 @@ function Hero() {
               </Link>
             </Button>
             <Button asChild variant="glass" size="xl">
-              <Link to="/features">Browse modules</Link>
+              <a href={DISCORD_URL} target="_blank" rel="noreferrer">Join the Discord</a>
             </Button>
           </div>
           <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground">
@@ -181,52 +180,47 @@ function ModeCard({
             </span>
           ))}
         </div>
-        <Link
-          to="/features"
-          search={{ mode }}
-          className={cn("inline-flex items-center gap-1 text-sm font-semibold", isGhost ? "text-primary" : "text-blatant")}
-        >
-          See all {title} modules <ArrowUpRight className="size-4" />
-        </Link>
       </div>
     </div>
   );
 }
 
-function Showcase() {
-  const [mode, setMode] = useState<Mode>("ghost");
+function Rewards() {
+  const perks = [
+    { icon: BadgePercent, value: "10%", label: "off for your viewers", body: "Users who order with your discount code of choice will get 10% off of their order." },
+    { icon: Coins, value: "10%", label: "cut for you", body: "You will also receive a 10% cut of the payment." },
+  ];
   return (
     <section className="relative border-y border-border bg-surface/30 py-24">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
+        <div className="grid items-end gap-10 lg:grid-cols-[1fr_1.2fr]">
           <div className="space-y-4">
-            <Eyebrow>The menu</Eyebrow>
+            <Eyebrow>For media</Eyebrow>
             <h2 className="font-display text-5xl tracking-tight sm:text-6xl">
-              One menu. <em className="text-gradient-ivy">Every module.</em>
+              <em className="text-gradient-ivy">Rewards</em> for creators.
             </h2>
-            <p className="max-w-lg text-muted-foreground">
-              A clean click GUI with per-module settings, keybinds and a live HUD. Here's what it looks like in-game.
+            <p className="max-w-md text-muted-foreground">
+              Make videos with Ivy and get your own discount code. Your viewers save, and you earn from every order.
             </p>
+            <Button asChild variant="hero" size="xl">
+              <a href={DISCORD_URL} target="_blank" rel="noreferrer">
+                Apply on Discord <ArrowUpRight />
+              </a>
+            </Button>
           </div>
-          <div className="inline-flex rounded-xl border border-border bg-background p-1">
-            {(["ghost", "blatant"] as const).map((m) => (
-              <button
-                key={m}
-                onClick={() => setMode(m)}
-                className={cn(
-                  "rounded-lg px-5 py-2 text-sm font-semibold capitalize transition-colors",
-                  mode === m
-                    ? m === "ghost" ? "bg-gradient-ivy text-primary-foreground" : "bg-blatant text-blatant-foreground"
-                    : "text-muted-foreground hover:text-foreground",
-                )}
-              >
-                {m}
-              </button>
+          <div className="grid gap-5 sm:grid-cols-2">
+            {perks.map(({ icon: Icon, value, label, body }) => (
+              <div key={label} className="relative overflow-hidden rounded-3xl border border-border bg-surface p-8 shadow-card">
+                <div className="absolute -right-16 -top-16 size-48 rounded-full bg-primary/15 blur-3xl" />
+                <div className="relative space-y-4">
+                  <Icon className="size-6 text-primary" />
+                  <p className="font-display text-7xl leading-none text-gradient-ivy">{value}</p>
+                  <p className="font-semibold">{label}</p>
+                  <p className="text-sm text-muted-foreground">{body}</p>
+                </div>
+              </div>
             ))}
           </div>
-        </div>
-        <div className="mt-10">
-          <ClickGui mode={mode} />
         </div>
       </div>
     </section>
@@ -295,9 +289,7 @@ function Versions() {
                 </div>
                 <h3 className="font-display text-4xl">{x.title}</h3>
                 <p className="max-w-md text-muted-foreground">{x.body}</p>
-                <Link to="/features" search={{ version: x.v }} className="inline-flex items-center gap-1 text-sm font-semibold text-primary">
-                  {count} modules on {x.v} <ArrowUpRight className="size-4" />
-                </Link>
+                <p className="font-mono text-xs text-primary">{count} modules on {x.v}</p>
               </div>
             </div>
           );

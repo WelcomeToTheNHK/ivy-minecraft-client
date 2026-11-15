@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Check, Sparkles } from "lucide-react";
-import { toast } from "sonner";
+import { DISCORD_URL } from "@/lib/links";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { PLANS, PLAN_INCLUDES, formatPrice } from "@/lib/pricing";
@@ -10,7 +10,7 @@ export const Route = createFileRoute("/pricing")({
   head: () => ({
     meta: [
       { title: "Pricing — Ivy Client" },
-      { name: "description", content: "Monthly, quarterly and lifetime Ivy plans. Every plan includes every Ghost and Blatant module on 1.21.11 and 1.8.9." },
+      { name: "description", content: "Ivy licenses from $3.00: 3 month, 6 month, 1 year and permanent. Every plan includes every Ghost and Blatant module on 1.21.11 and 1.8.9." },
       { property: "og:title", content: "Ivy Client Pricing" },
       { property: "og:description", content: "Every plan unlocks every module on 1.21.11 and 1.8.9." },
       { property: "og:type", content: "website" },
@@ -25,13 +25,10 @@ const FAQ = [
   { q: "Which versions are supported?", a: "Minecraft 1.21.11 (Fabric, injectable) and 1.8.9 (Forge, Lunar and vanilla, injectable). One license covers both." },
   { q: "Do I need separate plans for Ghost and Blatant?", a: "No. Every plan includes every Ghost and Blatant module. Switch modes in-game with one keybind." },
   { q: "What does self-destruct do?", a: "It unloads Ivy from the game and clears traces, so your client looks untouched." },
-  { q: "How fast is delivery?", a: "Instant. After checkout you get your license and the loader download right away." },
+  { q: "How do I buy?", a: "Click Buy now on any plan to join our Discord, then open a ticket to purchase your license." },
 ];
 
 function PricingPage() {
-  const buy = (name: string) =>
-    toast(`${name} plan selected`, { description: "Checkout isn't connected yet — coming soon." });
-
   return (
     <div className="relative">
       <div className="absolute inset-x-0 top-0 h-[32rem] bg-hero-glow" />
@@ -44,24 +41,24 @@ function PricingPage() {
           <p className="text-muted-foreground">No feature gates — only how long you want Ivy for.</p>
         </div>
 
-        <div className="mx-auto mt-14 grid max-w-5xl gap-5 md:grid-cols-3">
+        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {PLANS.map((p) => (
             <div
               key={p.id}
               className={cn(
-                "relative flex flex-col rounded-3xl border bg-surface p-8",
+                "relative flex flex-col rounded-3xl border bg-surface p-7",
                 p.popular ? "border-primary/40 shadow-glow" : "border-border shadow-card",
               )}
             >
               {p.popular && (
                 <span className="absolute -top-3 left-8 inline-flex items-center gap-1 rounded-full bg-gradient-ivy px-3 py-1 text-xs font-bold text-primary-foreground">
-                  <Sparkles className="size-3" /> Most popular
+                  <Sparkles className="size-3" /> Best value
                 </span>
               )}
               <h2 className="text-lg font-bold">{p.name}</h2>
               <p className="mt-1 text-sm text-muted-foreground">{p.blurb}</p>
               <p className="mt-6 flex items-baseline gap-2">
-                <span className="font-display text-6xl">{formatPrice(p.price)}</span>
+                <span className="font-display text-5xl">{formatPrice(p.price)}</span>
                 <span className="text-sm text-muted-foreground">/ {p.period}</span>
               </p>
               <ul className="mt-6 flex-1 space-y-2.5 text-sm">
@@ -71,8 +68,8 @@ function PricingPage() {
                   </li>
                 ))}
               </ul>
-              <Button variant={p.popular ? "hero" : "glass"} size="xl" className="mt-8 w-full" onClick={() => buy(p.name)}>
-                Get {p.name}
+              <Button asChild variant={p.popular ? "hero" : "glass"} size="xl" className="mt-8 w-full">
+                <a href={DISCORD_URL} target="_blank" rel="noreferrer">Buy now</a>
               </Button>
             </div>
           ))}

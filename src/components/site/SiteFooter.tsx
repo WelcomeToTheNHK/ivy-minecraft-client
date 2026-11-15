@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Logo } from "./Logo";
+import { DISCORD_URL } from "@/lib/links";
 
 export function SiteFooter() {
   return (
@@ -13,8 +14,8 @@ export function SiteFooter() {
         </div>
         <div className="space-y-3 text-sm">
           <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">Client</p>
-          <Link to="/features" className="block hover:text-primary">Modules</Link>
           <Link to="/pricing" className="block hover:text-primary">Pricing</Link>
+          <a href={DISCORD_URL} target="_blank" rel="noreferrer" className="block hover:text-primary">Discord</a>
         </div>
         <div className="space-y-3 text-sm">
           <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">Versions</p>

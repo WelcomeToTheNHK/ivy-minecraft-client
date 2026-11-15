@@ -1,10 +1,10 @@
 import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
+import { DISCORD_URL } from "@/lib/links";
 import { Logo } from "./Logo";
 
 const links = [
   { to: "/", label: "Home" },
-  { to: "/features", label: "Modules" },
   { to: "/pricing", label: "Pricing" },
 ] as const;
 
@@ -26,11 +26,8 @@ export function SiteHeader() {
           ))}
         </nav>
         <div className="flex items-center gap-2">
-          <Button asChild variant="glass" size="sm" className="hidden sm:inline-flex">
-            <Link to="/features">Explore</Link>
-          </Button>
           <Button asChild variant="hero" size="sm">
-            <Link to="/pricing">Buy now</Link>
+            <a href={DISCORD_URL} target="_blank" rel="noreferrer">Buy now</a>
           </Button>
         </div>
       </div>

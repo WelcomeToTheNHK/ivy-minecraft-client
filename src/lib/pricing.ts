@@ -8,9 +8,10 @@ export interface Plan {
 }
 
 export const PLANS: Plan[] = [
-  { id: "monthly", name: "Monthly", price: 9.99, period: "30 days", blurb: "Try every module for a month." },
-  { id: "quarterly", name: "Quarterly", price: 19.99, period: "90 days", blurb: "The sweet spot for a full season.", popular: true },
-  { id: "lifetime", name: "Lifetime", price: 39.99, period: "forever", blurb: "Pay once. Every update, forever." },
+  { id: "3-month", name: "3 Month License", price: 3, period: "3 months", blurb: "Try every module for a season." },
+  { id: "6-month", name: "6 Month License", price: 4, period: "6 months", blurb: "Half a year of Ivy." },
+  { id: "1-year", name: "1 Year License", price: 5, period: "1 year", blurb: "A full year of updates.", popular: true },
+  { id: "permanent", name: "Permanent License", price: 8, period: "forever", blurb: "Pay once. Every update, forever." },
 ];
 
 export const PLAN_INCLUDES = [

@@ -31,5 +31,5 @@ use the editor.
 
 ## Project rules
 - Module catalogue and plan data live in `src/lib/modules.ts` and `src/lib/pricing.ts`; pages read from them so counts and prices stay in one place.
-- `/features` filters (mode, version, category) are URL search params so links from other pages can pre-filter.
+- External links (Discord, used by every buy button) live in `src/lib/links.ts` so they change in one place.
 - The preview pre-bundles UI libraries through optimizeDeps.include in vite.config.ts, because re-bundling mid-session loaded two copies of React and blanked the page; add any new UI library there.
