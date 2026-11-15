@@ -15,4 +15,19 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  vite: {
+    // Pre-bundle UI libraries up front so the dev server never re-optimizes mid-session,
+    // which can load two React copies and crash with "Cannot read properties of null (reading 'useCallback')".
+    optimizeDeps: {
+      include: [
+        "@radix-ui/react-slot",
+        "@radix-ui/react-accordion",
+        "class-variance-authority",
+        "clsx",
+        "tailwind-merge",
+        "lucide-react",
+        "sonner",
+      ],
+    },
+  },
 });
