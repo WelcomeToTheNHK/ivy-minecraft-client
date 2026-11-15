@@ -4,11 +4,11 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DISCORD_URL } from "@/lib/links";
-import { MODULES, filterModules, type Mode } from "@/lib/modules";
+import { type Mode } from "@/lib/modules";
 import { formatPrice, startingPrice } from "@/lib/pricing";
 import { cn } from "@/lib/utils";
-import heroArt from "@/assets/ivy_hero_artwork.png.asset.json";
-import mascot from "@/assets/ivy_mascot.webp.asset.json";
+import heroArt from "@/assets/ivy_hero_artwork.png";
+import mascot from "@/assets/ivy_mascot.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -82,7 +82,7 @@ function Hero() {
         <div className="relative -mx-5 sm:mx-0 lg:-mr-24">
           <div className="absolute inset-[10%] rounded-full bg-primary/20 blur-3xl" />
           <img
-            src={heroArt.url}
+            src={heroArt}
             alt="Ivy client mascot next to the IVY logo"
             width={1280}
             height={720}
@@ -115,8 +115,6 @@ function TrustStrip() {
 }
 
 function Modes() {
-  const ghost = filterModules(MODULES, { mode: "ghost" });
-  const blatant = filterModules(MODULES, { mode: "blatant" });
   return (
     <section className="mx-auto max-w-7xl px-5 py-24 sm:px-8">
       <div className="mx-auto max-w-2xl space-y-4 text-center">
@@ -132,16 +130,12 @@ function Modes() {
           icon={Ghost}
           title="Ghost"
           tagline="Made for closet cheating."
-          body="Human-like aim, randomised clicks and believable reach. Built for practice, ranked and screenshare-heavy servers."
-          names={ghost.slice(0, 8).map((m) => m.name)}
         />
         <ModeCard
           mode="blatant"
           icon={Flame}
           title="Blatant"
           tagline="Made for when nobody's checking."
-          body="Kill Aura, Scaffold, Fly and server-specific disablers. For anarchy, HvH, and turning a lobby upside down."
-          names={blatant.slice(0, 8).map((m) => m.name)}
         />
       </div>
     </section>
@@ -149,9 +143,9 @@ function Modes() {
 }
 
 function ModeCard({
-  mode, icon: Icon, title, tagline, body, names,
+  mode, icon: Icon, title, tagline,
 }: {
-  mode: Mode; icon: typeof Ghost; title: string; tagline: string; body: string; names: string[];
+  mode: Mode; icon: typeof Ghost; title: string; tagline: string;
 }) {
   const isGhost = mode === "ghost";
   return (
@@ -169,14 +163,6 @@ function ModeCard({
         <div>
           <h3 className={cn("font-display text-5xl", isGhost ? "text-gradient-ivy" : "text-gradient-blatant")}>{title}</h3>
           <p className="mt-1 font-semibold">{tagline}</p>
-        </div>
-        <p className="text-muted-foreground">{body}</p>
-        <div className="flex flex-wrap gap-2">
-          {names.map((n) => (
-            <span key={n} className="rounded-md border border-border bg-background/60 px-2.5 py-1 font-mono text-xs text-muted-foreground">
-              {n}
-            </span>
-          ))}
         </div>
       </div>
     </div>
@@ -261,10 +247,10 @@ function Team() {
       <div className="relative grid items-center gap-10 overflow-hidden rounded-[2rem] border border-border bg-surface px-8 py-12 shadow-card md:grid-cols-[0.8fr_1.2fr] md:px-14">
         <div className="absolute -left-24 top-1/2 size-96 -translate-y-1/2 rounded-full bg-primary/15 blur-3xl" />
         <img
-          src={mascot.url}
+          src={mascot}
           alt="Ivy mascot"
-          width={1378}
-          height={1920}
+          width={326}
+          height={400}
           loading="lazy"
           className="relative mx-auto max-h-[30rem] w-auto animate-float drop-shadow-[0_20px_50px_oklch(0.7_0.15_160/0.35)]"
         />
