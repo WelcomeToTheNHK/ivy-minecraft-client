@@ -28,3 +28,7 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+- Module catalogue and plan data live in `src/lib/modules.ts` and `src/lib/pricing.ts`; pages read from them so counts and prices stay in one place.
+- `/features` filters (mode, version, category) are URL search params so links from other pages can pre-filter.
