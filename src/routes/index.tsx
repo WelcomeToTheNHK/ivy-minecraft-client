@@ -8,6 +8,7 @@ import { MODULES, filterModules, type Mode } from "@/lib/modules";
 import { formatPrice, startingPrice } from "@/lib/pricing";
 import { cn } from "@/lib/utils";
 import heroArt from "@/assets/ivy_hero_artwork.png.asset.json";
+import mascot from "@/assets/ivy_mascot.webp.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -31,7 +32,7 @@ function Index() {
       <Modes />
       <Rewards />
       <FeatureGrid />
-      <Versions />
+      <Team />
       <Setup />
       <FinalCta />
     </>
@@ -133,7 +134,6 @@ function Modes() {
           tagline="Made for closet cheating."
           body="Human-like aim, randomised clicks and believable reach. Built for practice, ranked and screenshare-heavy servers."
           names={ghost.slice(0, 8).map((m) => m.name)}
-          count={ghost.length}
         />
         <ModeCard
           mode="blatant"
@@ -142,7 +142,6 @@ function Modes() {
           tagline="Made for when nobody's checking."
           body="Kill Aura, Scaffold, Fly and server-specific disablers. For anarchy, HvH, and turning a lobby upside down."
           names={blatant.slice(0, 8).map((m) => m.name)}
-          count={blatant.length}
         />
       </div>
     </section>
@@ -150,9 +149,9 @@ function Modes() {
 }
 
 function ModeCard({
-  mode, icon: Icon, title, tagline, body, names, count,
+  mode, icon: Icon, title, tagline, body, names,
 }: {
-  mode: Mode; icon: typeof Ghost; title: string; tagline: string; body: string; names: string[]; count: number;
+  mode: Mode; icon: typeof Ghost; title: string; tagline: string; body: string; names: string[];
 }) {
   const isGhost = mode === "ghost";
   return (
@@ -166,7 +165,6 @@ function ModeCard({
           <span className={cn("grid size-12 place-items-center rounded-xl", isGhost ? "bg-gradient-ivy text-primary-foreground" : "bg-blatant text-blatant-foreground")}>
             <Icon className="size-6" />
           </span>
-          <span className="font-mono text-xs text-muted-foreground">{count} modules</span>
         </div>
         <div>
           <h3 className={cn("font-display text-5xl", isGhost ? "text-gradient-ivy" : "text-gradient-blatant")}>{title}</h3>
@@ -257,43 +255,29 @@ function FeatureGrid() {
   );
 }
 
-function Versions() {
-  const versions = [
-    {
-      v: "1.21.11" as const,
-      loader: "Fabric · Injectable",
-      title: "Modern combat",
-      body: "Crystal, anchor, mace and sword PvP. Auto Totem, Anchor Macro, Mace Swap and Shield Break are built in.",
-    },
-    {
-      v: "1.8.9" as const,
-      loader: "Forge · Lunar · Injectable",
-      title: "Classic PvP",
-      body: "Bedwars, Skywars and practice. Block Hit, Bed Nuker and tuned 1.8 knockback handling.",
-    },
-  ];
+function Team() {
   return (
     <section className="mx-auto max-w-7xl px-5 pb-24 sm:px-8">
-      <div className="grid gap-5 md:grid-cols-2">
-        {versions.map((x) => {
-          const count = filterModules(MODULES, { version: x.v }).length;
-          return (
-            <div key={x.v} className="relative overflow-hidden rounded-3xl border border-border bg-surface p-8 shadow-card">
-              <span className="pointer-events-none absolute -bottom-6 right-4 font-display text-[9rem] leading-none text-foreground/[0.04]">
-                {x.v}
-              </span>
-              <div className="relative space-y-4">
-                <div className="flex items-center gap-3">
-                  <span className="rounded-md bg-gradient-ivy px-2.5 py-1 font-mono text-xs font-medium text-primary-foreground">{x.v}</span>
-                  <span className="text-xs text-muted-foreground">{x.loader}</span>
-                </div>
-                <h3 className="font-display text-4xl">{x.title}</h3>
-                <p className="max-w-md text-muted-foreground">{x.body}</p>
-                <p className="font-mono text-xs text-primary">{count} modules on {x.v}</p>
-              </div>
-            </div>
-          );
-        })}
+      <div className="relative grid items-center gap-10 overflow-hidden rounded-[2rem] border border-border bg-surface px-8 py-12 shadow-card md:grid-cols-[0.8fr_1.2fr] md:px-14">
+        <div className="absolute -left-24 top-1/2 size-96 -translate-y-1/2 rounded-full bg-primary/15 blur-3xl" />
+        <img
+          src={mascot.url}
+          alt="Ivy mascot"
+          width={1378}
+          height={1920}
+          loading="lazy"
+          className="relative mx-auto max-h-[30rem] w-auto animate-float drop-shadow-[0_20px_50px_oklch(0.7_0.15_160/0.35)]"
+        />
+        <div className="relative space-y-5">
+          <Eyebrow>The team</Eyebrow>
+          <h2 className="font-display text-5xl tracking-tight sm:text-6xl">
+            Made by <em className="text-gradient-ivy">two</em> developers.
+          </h2>
+          <p className="max-w-lg text-lg text-muted-foreground">
+            Ivy is made by two independent developers, <span className="font-semibold text-foreground">Rusty</span> and{" "}
+            <span className="font-semibold text-foreground">Starry</span>.
+          </p>
+        </div>
       </div>
     </section>
   );
